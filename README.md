@@ -1,71 +1,41 @@
-# proyecto_4_limpieza_informe
-Limpiar datos y preparar informe | Hábitos de compra de los clientes de Instacart | Data WranglingGitHub
+# 🛒 Instacart Market Basket: Data Integrity & Consumer Behavior Analysis
 
-## Descripción del Proyecto
-Análisis de datos de un conjunto modificado de Instacart (plataforma de entrega de comestibles)
-Con el objetivo de evaluar y mejorar la calidad de los datos para análisis exploratorio. El trabajo se centró en:
+## 🎯 Project Overview
+This project focuses on a comprehensive **Data Wrangling** and **Exploratory Data Analysis (EDA)** process for a modified Instacart dataset. The primary goal was to transform raw, fragmented grocery data into a high-fidelity dataset to uncover meaningful patterns in customer shopping habits, order frequency, and product loyalty.
 
-- Limpieza de datos
-- Transformación y estandarización
-- Manejo de valores ausentes y duplicados
-- Preparación para análisis avanzado
-
-## Objetivos del Análisis
-
-✅ Identificar y corregir problemas de calidad de datos  
-✅ Estandarizar tipos de datos para análisis preciso  
-✅ Descubrir patrones en hábitos de compra  
-✅ Visualizar distribución temporal de pedidos  
-✅ Analizar tasa de reordenación como indicador de fidelidad  
-
-## Tecnologías Utilizadas
-
-| Categoría | Herramientas |
-|-----------|-------------|
-| Lenguaje | Python |
-| Bibliotecas | Pandas, NumPy |
-| Visualización | Matplotlib, Seaborn |
-| Métodos clave | `isna()`, `duplicated()`, `fillna()`, `astype()`, `value_counts()`, `merge()` 
-
-## Pasos Clave del Análisis
-
-### 1. Carga y Evaluación de la Calidad de los Datos
-📂 Carga y Evaluación de la Calidad de los Datos: 
-Se cargan los 5 archivos CSV (instacart_orders, products, order_products, aisles, departments)
-Se realizó una inspección inicial para identificar valores ausentes, duplicados y tipos de datos incorrectos.
-
-🔍 Inspección inicial para identificar:
-- Valores ausentes (NaN)
-- Registros duplicados
-- Tipos de datos incorrectos
-- Inconsistencias en formatos
-
-### 2. Limpieza y Normalización
-
-#### Manejo de Valores Ausentes
-| Columna | Tratamiento | Acción |
-|---------|-------------|--------|
-| `days_since_prior_order` | NaN → 0.0 | Relleno con valor por defecto |
-| `product_name` | NaN → 'unknown' | Marcador para valores faltantes |
-| `add_to_cart_order` | NaN → 999 | Conversión a tipo entero |
-
-Se identificaron y gestionaron los valores ausentes en las tablas:
-- Los NaN en days_since_prior_order se reemplazaron con 0.0
-- Los de product_name se sustituyeron por 'unknown'
-- Los de add_to_cart_order por 999, para luego convertir la columna a tipo entero.
-  
-Se verificaron y eliminaron los duplicados que pudieran existir, tanto en filas completas como en combinaciones de columnas clave.
+## 🛠️ Data Engineering & Cleaning Pipeline
+Managing five relational tables (`orders`, `products`, `order_products`, `aisles`, and `departments`) required a systematic approach to ensure data consistency across the entire schema.
 
 
-### 3. Análisis Exploratorio y Visualización:
 
-- Se verificó que los valores en las columnas order_hour_of_day y order_dow fueran razonables, oscilando entre 0-23 y 0-6 respectivamente.
-- Se generaron gráficos de barras para mostrar la frecuencia de pedidos por hora del día y por día de la semana.
-- Se creó un histograma para visualizar la distribución de los días transcurridos entre pedidos.
-- Se examinó la proporción de productos reordenados para comprender la lealtad del cliente.
+### Key Data Integrity Steps:
+* **Schema Normalization:** Identified and corrected inconsistent data types, ensuring columns like `order_hour_of_day` and `order_dow` (day of week) were within logical bounds.
+* **Missing Value Imputation:** * `days_since_prior_order`: Handled `NaN` values (representing first-time customers) by imputing `0.0` to maintain numerical consistency.
+    * `product_name`: Standardized missing entries as `'unknown'` to preserve categorical integrity.
+    * `add_to_cart_order`: Resolved missing values with a placeholder (`999`) to facilitate integer conversion.
+* **Deduplication:** Performed multi-stage duplicate checks on unique identifiers and cross-table references to eliminate redundant noise.
 
-### Conclusiones
-Este proyecto demostró un manejo sólido de las técnicas de limpieza y preparación de datos en Python.
-La información procesada reveló patrones de compra significativos, como la preferencia por las mañanas y los fines de semana para hacer pedidos.
-Además, el análisis de productos reordenados y la frecuencia de compra resalta la fidelidad de los clientes de Instacart.
-Estos hallazgos son valiosos para cualquier estrategia de negocio que busque optimizar la operación y el marketing.
+## 📊 Exploratory Data Analysis (EDA)
+With the cleaned data, I analyzed the temporal distribution of orders and customer retention metrics:
+
+### 1. Temporal Shopping Patterns
+Using **Matplotlib** and **Seaborn**, I visualized when customers are most active:
+* **Peak Hours:** Identification of high-traffic windows for grocery deliveries.
+* **Weekly Trends:** Analysis of weekend vs. weekday demand.
+
+
+
+### 2. Retention & Loyalty Metrics
+* **Reorder Rate Analysis:** Calculated the proportion of repeat purchases to measure brand loyalty and product stickiness.
+* **Order Frequency:** Analyzed the distribution of days between orders to understand the typical customer lifecycle.
+
+## 🛠️ Tech Stack
+* **Language:** Python 3.12.x
+* **Data Manipulation:** Pandas, NumPy.
+* **Visualization:** Matplotlib, Seaborn.
+* **Methods:** `merge()`, `fillna()`, `value_counts()`, `duplicated()`, `astype()`.
+
+## 📈 Key Business Insights
+* **Operational Optimization:** Order peaks occur during morning hours and weekends, suggesting critical windows for staffing and logistics optimization.
+* **Customer Loyalty:** A high reorder rate in specific departments (e.g., Produce) indicates strong customer retention and reliance on the platform for daily essentials.
+* **Actionable Data:** The refined dataset is now prepared for advanced Machine Learning tasks, such as Market Basket Analysis or Recommender Systems.
